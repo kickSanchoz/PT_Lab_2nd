@@ -1,15 +1,15 @@
 package ru.pt_lab_2nd.android.controller
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import coil.size.Scale
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.SupervisorJob
@@ -17,7 +17,9 @@ import kotlinx.coroutines.launch
 import ru.pt_lab_2nd.R
 import ru.pt_lab_2nd.android.model.Product
 import ru.pt_lab_2nd.android.model.repository.ProductRepository
+import ru.pt_lab_2nd.android.utils.ItemOffsetDecoration
 import ru.pt_lab_2nd.android.utils.Resource
+import ru.pt_lab_2nd.android.utils.getPlaceholder
 import ru.pt_lab_2nd.databinding.ActivityMainBinding
 import ru.pt_lab_2nd.databinding.ItemProductBinding
 import javax.inject.Inject
@@ -47,8 +49,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupView() {
-        binding.rvProducts.layoutManager =
-            LinearLayoutManager(binding.root.context, LinearLayoutManager.VERTICAL, false)
+        binding.rvProducts.addItemDecoration(
+            ItemOffsetDecoration(
+                binding.root.context,
+                R.dimen.item_offset
+            )
+        )
         binding.rvProducts.adapter = productAdapter
     }
 
@@ -59,22 +65,25 @@ class MainActivity : AppCompatActivity() {
             CoroutineScope(job).launch(IO) {
                 val productList = mutableListOf(
                     Product(
-                        1,
-                        "Стул",
-                        100,
-                        10,
+                        id = 1,
+                        url = "https://www.pngrepo.com/png/21590/180/chair.png",
+                        name = "Стул",
+                        price = 100,
+                        count = 10,
                     ),
                     Product(
-                        2,
-                        "Стол",
-                        150,
-                        3,
+                        id = 2,
+                        url = "https://www.pngrepo.com/png/164217/180/table.png",
+                        name = "Стол",
+                        price = 150,
+                        count = 3,
                     ),
                     Product(
-                        3,
-                        "Диван",
-                        200,
-                        1,
+                        id = 3,
+                        url = "https://www.pngrepo.com/png/8313/180/couch.png",
+                        name = "Диван",
+                        price = 200,
+                        count = 1,
                     ),
                 )
                 val res = productRepository.insertAllProducts(productList)
@@ -86,6 +95,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun observeData() {
         productRepository.getAllProducts().observe(this) {
+            Log.e("products", "$it")
             if (!it.isNullOrEmpty()) {
                 productAdapter.clear()
                 productAdapter.addAll(it)
@@ -126,9 +136,16 @@ class MainActivity : AppCompatActivity() {
             RecyclerView.ViewHolder(viewBinding.root) {
             fun bind(product: Product) {
                 viewBinding.apply {
+                    ivPicture.load(product.url) {
+                        crossfade(true)
+                        placeholder(getPlaceholder(root.context))
+                        scale(Scale.FILL)
+                        error(R.color.grey)
+                    }
                     tvName.text = product.name
                     tvPrice.text = getString(R.string.Price_string, product.price.toString())
-                    tvCount.text = product.count.toString()
+                    tvCount.text =
+                        getString(R.string.Remaining_with_colon_string, product.count.toString())
 
                     root.setOnClickListener {
                         tvCount.text = "ы"

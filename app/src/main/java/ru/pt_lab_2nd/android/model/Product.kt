@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 data class Product(
     @PrimaryKey
     val id: Int,
+    val url: String? = null,
     val name: String,
     val price: Int,
     val count: Int

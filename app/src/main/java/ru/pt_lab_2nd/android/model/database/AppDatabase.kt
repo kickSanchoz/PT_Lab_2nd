@@ -34,7 +34,7 @@ class ProductConverter {
     entities = [
         Product::class,
     ],
-    version = 1
+    version = 2
 )
 @TypeConverters(
     ProductConverter::class

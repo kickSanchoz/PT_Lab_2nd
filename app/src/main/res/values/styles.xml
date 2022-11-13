@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="DefaultShapeAppearance" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/shapeRadius</item>
+    </style>
+
+    <style name="DefaultShapeAppearance.Circle">
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <!--  TextAppearance   -->
+
+    <style name="TextAppearance" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:fontFamily">@font/open_sans</item>
+        <item name="fontFamily">@font/open_sans</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/s14</item>
+    </style>
+
+    <style name="TextAppearance.S48">
+        <item name="android:textSize">@dimen/s48</item>
+    </style>
+
+    <style name="TextAppearance.S36">
+        <item name="android:textSize">@dimen/s36</item>
+    </style>
+
+    <style name="TextAppearance.S32">
+        <item name="android:textSize">@dimen/s32</item>
+    </style>
+
+    <style name="TextAppearance.S24">
+        <item name="android:textSize">@dimen/s24</item>
+    </style>
+
+    <style name="TextAppearance.S18">
+        <item name="android:textSize">@dimen/s18</item>
+    </style>
+
+    <style name="TextAppearance.S16">
+        <item name="android:textSize">@dimen/s16</item>
+    </style>
+
+    <style name="TextAppearance.S14">
+        <item name="android:textSize">@dimen/s14</item>
+    </style>
+
+    <style name="TextAppearance.S12">
+        <item name="android:textSize">@dimen/s12</item>
+    </style>
+
+    <style name="TextAppearance.S8">
+        <item name="android:textSize">@dimen/s8</item>
+    </style>
+
+    <style name="TextAppearance.Medium">
+        <item name="android:fontFamily">@font/open_sans_semibold</item>
+        <item name="fontFamily">@font/open_sans_semibold</item>
+    </style>
+
+    <style name="TextAppearance.Medium.S48">
+        <item name="android:textSize">@dimen/s48</item>
+    </style>
+
+    <style name="TextAppearance.Medium.S36">
+        <item name="android:textSize">@dimen/s36</item>
+    </style>
+
+    <style name="TextAppearance.Medium.S32">
+        <item name="android:textSize">@dimen/s32</item>
+    </style>
+
+    <style name="TextAppearance.Medium.S24">
+        <item name="android:textSize">@dimen/s24</item>
+    </style>
+
+    <style name="TextAppearance.Medium.S18">
+        <item name="android:textSize">@dimen/s18</item>
+    </style>
+
+    <style name="TextAppearance.Medium.S16">
+        <item name="android:textSize">@dimen/s16</item>
+    </style>
+
+    <style name="TextAppearance.Medium.S14">
+        <item name="android:textSize">@dimen/s14</item>
+    </style>
+
+    <style name="TextAppearance.Medium.S12">
+        <item name="android:textSize">@dimen/s12</item>
+    </style>
+
+    <style name="TextAppearance.Medium.S8">
+        <item name="android:textSize">@dimen/s8</item>
+    </style>
+
+    <style name="TextAppearance.Bold">
+        <item name="android:fontFamily">@font/open_sans_bold</item>
+        <item name="fontFamily">@font/open_sans_bold</item>
+    </style>
+
+    <style name="TextAppearance.Bold.S48">
+        <item name="android:textSize">@dimen/s48</item>
+    </style>
+
+    <style name="TextAppearance.Bold.S36">
+        <item name="android:textSize">@dimen/s36</item>
+    </style>
+
+    <style name="TextAppearance.Bold.S32">
+        <item name="android:textSize">@dimen/s32</item>
+    </style>
+
+    <style name="TextAppearance.Bold.S24">
+        <item name="android:textSize">@dimen/s24</item>
+    </style>
+
+    <style name="TextAppearance.Bold.S18">
+        <item name="android:textSize">@dimen/s18</item>
+    </style>
+
+    <style name="TextAppearance.Bold.S16">
+        <item name="android:textSize">@dimen/s16</item>
+    </style>
+
+    <style name="TextAppearance.Bold.S14">
+        <item name="android:textSize">@dimen/s14</item>
+    </style>
+
+    <style name="TextAppearance.Bold.S12">
+        <item name="android:textSize">@dimen/s12</item>
+    </style>
+
+    <style name="TextAppearance.Bold.S8">
+        <item name="android:textSize">@dimen/s8</item>
+    </style>
+
+
+    <!--  Dialog Fragment   -->
+    <style name="DialogFragmentTheme" parent="android:Theme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/enter_slide_up</item>
+        <item name="android:windowExitAnimation">@anim/exit_slide_down</item>
+    </style>
+</resources>

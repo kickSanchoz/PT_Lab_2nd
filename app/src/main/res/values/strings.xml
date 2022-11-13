@@ -2,4 +2,5 @@
     <string name="app_name">PT_Lab_2nd</string>
 
     <string name="Price_string">%s$</string>
+    <string name="Remaining_with_colon_string">Осталось: %s</string>
 </resources>

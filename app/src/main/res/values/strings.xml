@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">PT_Lab_2nd</string>
+
+    <string name="Price_string">%s$</string>
+</resources>

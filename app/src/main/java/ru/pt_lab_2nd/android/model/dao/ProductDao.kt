@@ -19,5 +19,6 @@ interface ProductDao {
     @Insert(onConflict = REPLACE)
     fun insertProduct(product: Product)
 
-
+    @Query ("UPDATE product SET count= :count WHERE id LIKE :id")
+    fun updateProduct(id: Int, count: Int)
 }

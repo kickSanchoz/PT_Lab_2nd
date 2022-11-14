@@ -3,7 +3,6 @@ package ru.pt_lab_2nd.android.model.datasource
 import ru.pt_lab_2nd.android.base.BaseDaoDataSource
 import ru.pt_lab_2nd.android.model.Product
 import ru.pt_lab_2nd.android.model.dao.ProductDao
-import ru.pt_lab_2nd.android.utils.Resource
 import javax.inject.Inject
 
 class ProductDaoDataSource @Inject constructor(
@@ -16,10 +15,13 @@ class ProductDaoDataSource @Inject constructor(
 
     suspend fun insertAllProducts(productList: List<Product>) = getResultAsync {
         productDao.insertAllProducts(productList)
-        Resource.success(Unit)
     }
 
     suspend fun insertProduct(product: Product) = getResultAsync {
-        Resource.success(productDao.insertProduct(product))
+        productDao.insertProduct(product)
+    }
+
+    suspend fun updateProduct(product: Product) = getResultAsync {
+        productDao.updateProduct(product.id, product.count)
     }
 }

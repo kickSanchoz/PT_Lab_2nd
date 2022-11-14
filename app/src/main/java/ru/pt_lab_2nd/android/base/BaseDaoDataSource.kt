@@ -1,6 +1,7 @@
 package ru.pt_lab_2nd.android.base
 
 import android.database.sqlite.SQLiteException
+import ru.pt_lab_2nd.android.utils.Resource
 
 abstract class BaseDaoDataSource {
 
@@ -10,13 +11,13 @@ abstract class BaseDaoDataSource {
         var httpCode: Int? = null
     )
 
-    protected suspend fun <T> getResultAsync(call: suspend () -> T): T {
+    protected suspend fun <T> getResultAsync(call: suspend () -> T): Resource<T> {
         try {
             val response = call()
-            return response
+            return Resource.success(response)
         } catch (e: SQLiteException) {
             e.printStackTrace()
-            throw SQLiteException(e.message ?: e.toString())
+            return Resource.error("$e")
         }
     }
 

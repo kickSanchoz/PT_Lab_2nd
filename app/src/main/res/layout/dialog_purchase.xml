@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/DialogFragmentStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="40dp"
+        tools:context=".android.controller.PurchaseDialogFragment">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_picture"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.2"
+            tools:src="@color/black" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.Bold.S18"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_picture"
+            app:layout_constraintTop_toTopOf="@+id/iv_picture"
+            tools:text="Оооооооооооооооооооооооооооочень длинное название" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_price"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:textAppearance="@style/TextAppearance.Medium.S18"
+            android:textColor="@color/red"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_picture"
+            app:layout_constraintTop_toBottomOf="@id/tv_name"
+            tools:text="Цена" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/br_product"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="iv_picture, tv_price"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="20dp" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_enterName_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/EnterYourName"
+            android:textAppearance="@style/TextAppearance.S16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/br_product" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_enterName"
+            style="@style/TextInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_enterName_label">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_enterName"
+                style="@style/TextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_deliver_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/WhereToDeliver"
+            android:textAppearance="@style/TextAppearance.S16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/til_enterName" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_deliver"
+            style="@style/TextInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_deliver_label">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_deliver"
+                style="@style/TextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_buy"
+            style="@style/Button.Main"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/Buy"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/til_deliver" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

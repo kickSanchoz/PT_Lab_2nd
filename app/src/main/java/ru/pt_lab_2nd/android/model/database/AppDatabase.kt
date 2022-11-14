@@ -7,7 +7,9 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import ru.pt_lab_2nd.android.model.Product
+import ru.pt_lab_2nd.android.model.Purchase
 import ru.pt_lab_2nd.android.model.dao.ProductDao
+import ru.pt_lab_2nd.android.model.dao.PurchaseDao
 import ru.pt_lab_2nd.android.utils.DATASTORE_NAME
 import java.lang.reflect.ParameterizedType
 
@@ -33,14 +35,16 @@ class ProductConverter {
 @Database(
     entities = [
         Product::class,
+        Purchase::class
     ],
-    version = 2
+    version = 3
 )
 @TypeConverters(
     ProductConverter::class
 )
 abstract class AppDatabase: RoomDatabase() {
     abstract fun productDao(): ProductDao
+    abstract fun purchaseDao(): PurchaseDao
 
     companion object {
         @Volatile

@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.size.Scale
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -34,6 +35,8 @@ class MainActivity : AppCompatActivity() {
     val binding get() = mViewBinding!!
 
     private val job = SupervisorJob()
+
+    private var purchaseDialogFragment: PurchaseDialogFragment? = null
 
     private val productAdapter = ProductAdapter()
 
@@ -103,7 +106,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     inner class ProductAdapter : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
         private var productList = mutableListOf<Product>()
 
@@ -139,7 +141,7 @@ class MainActivity : AppCompatActivity() {
                     ivPicture.load(product.url) {
                         crossfade(true)
                         placeholder(getPlaceholder(root.context))
-                        scale(Scale.FILL)
+                        scale(Scale.FIT)
                         error(R.color.grey)
                     }
                     tvName.text = product.name
@@ -148,7 +150,19 @@ class MainActivity : AppCompatActivity() {
                         getString(R.string.Remaining_with_colon_string, product.count.toString())
 
                     root.setOnClickListener {
-                        tvCount.text = "ы"
+                        when {
+                            purchaseDialogFragment?.isVisible != true && product.count > 0 -> {
+                                purchaseDialogFragment = PurchaseDialogFragment().apply {
+                                    arguments = PurchaseDialogFragment.getBundle(product)
+                                }
+                                purchaseDialogFragment?.show(supportFragmentManager, null)
+                            }
+                            product.count <= 0 -> {
+                                Snackbar
+                                    .make(root, "Товар закончился", Snackbar.LENGTH_SHORT)
+                                    .show()
+                            }
+                        }
                     }
                 }
             }

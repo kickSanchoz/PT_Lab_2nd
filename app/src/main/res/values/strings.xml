@@ -3,4 +3,7 @@
 
     <string name="Price_string">%s$</string>
     <string name="Remaining_with_colon_string">Осталось: %s</string>
+    <string name="EnterYourName">Введите своё имя</string>
+    <string name="WhereToDeliver">Куда доставить</string>
+    <string name="Buy">Купить</string>
 </resources>

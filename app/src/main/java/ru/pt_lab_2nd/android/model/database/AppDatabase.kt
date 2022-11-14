@@ -37,7 +37,7 @@ class ProductConverter {
         Product::class,
         Purchase::class
     ],
-    version = 3
+    version = 4
 )
 @TypeConverters(
     ProductConverter::class

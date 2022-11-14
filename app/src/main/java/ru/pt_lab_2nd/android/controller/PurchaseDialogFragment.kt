@@ -39,7 +39,7 @@ class PurchaseDialogFragment : DialogFragment() {
 
     private var product: Product? = null
 
-    private val purchase = MutableLiveData<Purchase>(Purchase())
+    private lateinit var purchase: MutableLiveData<Purchase>
 
     private val purchaseStatus = MutableLiveData<Resource<Unit>>()
 
@@ -53,6 +53,14 @@ class PurchaseDialogFragment : DialogFragment() {
     private fun parseArguments() {
         arguments?.let {
             product = it.getParcelable(KEY_PRODUCT)
+            product?.let { p ->
+                purchase = MutableLiveData(
+                    Purchase(
+                        product = p,
+                    )
+                )
+            }
+
         }
     }
 
@@ -76,9 +84,9 @@ class PurchaseDialogFragment : DialogFragment() {
     private fun observeView() {
         binding.apply {
             etEnterName.addTextChangedListener {
-                if (!it.isNullOrEmpty()) {
-                    purchase.value = purchase.value?.copy(
-                        customer = purchase.value?.customer?.copy(
+                purchase.value?.let { pur ->
+                    purchase.value = pur.copy(
+                        customer = pur.customer.copy(
                             name = it.toString()
                         )
                     )
@@ -86,9 +94,9 @@ class PurchaseDialogFragment : DialogFragment() {
             }
 
             etDeliver.addTextChangedListener {
-                if (!it.isNullOrEmpty()) {
-                    purchase.value = purchase.value?.copy(
-                        customer = purchase.value?.customer?.copy(
+                purchase.value?.let { pur ->
+                    purchase.value = pur.copy(
+                        customer = pur.customer.copy(
                             address = it.toString()
                         )
                     )
@@ -122,10 +130,6 @@ class PurchaseDialogFragment : DialogFragment() {
                 tvPrice.text = getString(R.string.Price_string, p.price.toString())
             }
         }
-
-        purchase.value = purchase.value?.copy(
-            product = product
-        )
 
         purchase.observe(viewLifecycleOwner) {
             binding.btnBuy.isEnabled = it.isValid()

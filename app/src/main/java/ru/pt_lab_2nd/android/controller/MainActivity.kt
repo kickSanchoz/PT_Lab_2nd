@@ -152,10 +152,14 @@ class MainActivity : AppCompatActivity() {
                     root.setOnClickListener {
                         when {
                             purchaseDialogFragment?.isVisible != true && product.count > 0 -> {
-                                purchaseDialogFragment = PurchaseDialogFragment().apply {
-                                    arguments = PurchaseDialogFragment.getBundle(product)
-                                }
-                                purchaseDialogFragment?.show(supportFragmentManager, null)
+//                                purchaseDialogFragment = PurchaseDialogFragment().apply {
+//                                    arguments = PurchaseDialogFragment.getBundle(product)
+//                                }
+//                                purchaseDialogFragment?.show(supportFragmentManager, null)
+
+                                PurchaseDialogFragment2().apply {
+                                    arguments = PurchaseDialogFragment2.getBundle(product)
+                                }.show(supportFragmentManager, null)
                             }
                             product.count <= 0 -> {
                                 Snackbar

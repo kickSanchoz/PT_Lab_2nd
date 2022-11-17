@@ -1,28 +1,36 @@
 package ru.pt_lab_2nd.android.base
 
 import android.os.Bundle
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.annotation.StyleRes
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
 import ru.pt_lab_2nd.R
 import ru.pt_lab_2nd.android.model.DialogWindowSize
 
-open class BaseDialogFragment<VB: ViewDataBinding> : DialogFragment() {
+abstract class BaseDialogFragment<VB : ViewDataBinding> : DialogFragment() {
     private var _binding: VB? = null
     val binding
         get() = _binding!!
 
     val configurator = Configurator()
 
-    override fun getTheme(): Int = configurator.style
+    override fun getTheme(): Int = configurator.theme
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        checkConfiguratorSettings()
+
         parseArguments()
+    }
+
+    private fun checkConfiguratorSettings() {
+        if (configurator.layout == null) {
+            throw IllegalStateException("Configurator: layout value is required")
+        }
     }
 
     open fun parseArguments() {
@@ -42,16 +50,11 @@ open class BaseDialogFragment<VB: ViewDataBinding> : DialogFragment() {
         return binding.root
     }
 
-    open fun setupView() {
+    open fun setupView() {}
 
-    }
+    open fun observeView() {}
 
-    open fun observeView() {
-    }
-
-    open fun observeData() {
-
-    }
+    open fun observeData() {}
 
     override fun onStart() {
         super.onStart()
@@ -62,44 +65,34 @@ open class BaseDialogFragment<VB: ViewDataBinding> : DialogFragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         dialog?.apply {
+            isCancelable = configurator.isCancelable
+            setCanceledOnTouchOutside(configurator.isCloseableOnTouchOutside)
 
-            window?.setWindowAnimations(R.style.DialogAnimation)
-            //TODO если высота лейаута WRAP_CONTENT, при 0 статус бар становится черным и не работает, при любой другой все отрабатывет
-            window?.attributes?.y = 1
+            window?.apply {
+                /*
+                * Флаг позволяет всегда отрисовывать фон статус бара и затемняет его, если
+                * windowIsFloating == true.
+                * Например, при высоте окна MATCH_PARENT статус бар становится полностью чёрным, а с
+                * данным флагом затемняется и остаётся полупрозрачным
+                * */
+                addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                //Делает статус бар прозрачным и он становится colorPrimary цвета приложения
+                statusBarColor = ResourcesCompat.getColor(resources, R.color.transparent, null)
 
-            window?.setLayout(
-                configurator.width.let { w ->
-                    when(w) {
-                        is DialogWindowSize.MatchParent -> {
-                            (w.value * resources.displayMetrics.widthPixels).toInt()
-                        }
-                        is DialogWindowSize.WrapContent -> {
-                            ViewGroup.LayoutParams.WRAP_CONTENT
-                        }
-                        is DialogWindowSize.Specified -> {
-                            (w.value * resources.displayMetrics.widthPixels).toInt()
-                        }
-                    }
-                },
-                configurator.height.let { h ->
-                    when(h) {
-                        is DialogWindowSize.MatchParent -> {
-                            (h.value * resources.displayMetrics.heightPixels).toInt()
-                        }
-                        is DialogWindowSize.WrapContent -> {
-                            ViewGroup.LayoutParams.WRAP_CONTENT
-                        }
-                        is DialogWindowSize.Specified -> {
-                            (h.value * resources.displayMetrics.heightPixels).toInt()
-                        }
-                    }
-                }
-            )
-            window?.setGravity(configurator.gravity)
+                setWindowAnimations(configurator.animationStyle)
+                setLayout(
+                    configurator.width.value,
+                    configurator.height.value
+                )
+                setGravity(configurator.gravity)
+            } ?: run {
+                throw IllegalStateException("Activity window is not visual")
+            }
+        } ?: run {
+            throw IllegalStateException("Dialog is not found")
         }
     }
 
-    //TODO перенести в базовый диалог фрагмент
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
@@ -107,15 +100,56 @@ open class BaseDialogFragment<VB: ViewDataBinding> : DialogFragment() {
 
     companion object {
         class Configurator {
+
+            /** Лейаут для отображения
+             *
+             * По умолчанию: null
+             * */
             var layout: Int? = null
 
+            /** Гравити окна
+             *
+             * По умолчанию: Gravity.BOTTOM
+             * */
             var gravity: Int = Gravity.BOTTOM
 
-            var style: Int = R.style.DialogFragmentTheme
+            /** Тема диалог фрагмента
+             *
+             * По умолчанию: R.style.DialogFragmentTheme
+             * */
+            @StyleRes
+            var theme: Int = R.style.DialogFragmentTheme
 
+            /** Ширина окна
+             *
+             * По умолчанию: DialogWindowSize.MatchParent
+             * */
             var width: DialogWindowSize = DialogWindowSize.MatchParent
 
+            /** Высота окна
+             *
+             * По умолчанию: DialogWindowSize.WrapContent
+             * */
             var height: DialogWindowSize = DialogWindowSize.WrapContent
+
+            /** Возможно ли закрыть окно
+             *
+             * По умолчанию: true
+             * */
+            var isCancelable: Boolean = true
+
+            /** Возможно ли закрыть касанием вне окна
+             *
+             * По умолчанию: true
+             * */
+            var isCloseableOnTouchOutside: Boolean = true
+
+            /** Стиль анимации
+             *
+             * По умолчанию: R.style.DialogAnimation
+             * */
+            @StyleRes
+            var animationStyle: Int = R.style.DialogAnimation
         }
     }
 }

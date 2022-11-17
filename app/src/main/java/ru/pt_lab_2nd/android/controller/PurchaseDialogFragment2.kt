@@ -25,7 +25,11 @@ class PurchaseDialogFragment2 : BaseDialogFragment<DialogPurchaseBinding>() {
             layout = R.layout.dialog_purchase
             gravity = Gravity.BOTTOM
             width = DialogWindowSize.MatchParent
-            height = DialogWindowSize.Specified(0.75f)
+            height = DialogWindowSize.WrapContent
+            theme = R.style.DialogFragmentTheme
+            isCancelable = true
+            isCloseableOnTouchOutside = true
+            animationStyle = R.style.DialogAnimation
         }
     }
 

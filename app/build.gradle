@@ -71,10 +71,6 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-common-java8:2.3.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-
     implementation 'androidx.hilt:hilt-navigation-fragment:1.0.0'
     implementation 'com.google.dagger:hilt-android:2.38.1'
     kapt 'com.google.dagger:hilt-compiler:2.38.1'
@@ -89,7 +85,7 @@ dependencies {
     kapt "org.xerial:sqlite-jdbc:3.34.0"
 
     // optional - Kotlin Extensions and Coroutines support for Room
-    implementation "androidx.room:room-ktx:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"G
 
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 
@@ -105,4 +101,12 @@ dependencies {
     implementation("io.coil-kt:coil-svg:1.+")
 
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
+    androidTestImplementation  "org.jetbrains.kotlin:kotlin-test-junit:1.4.20"
+    androidTestImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test:core:1.4.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test:rules:1.2.0'
 }

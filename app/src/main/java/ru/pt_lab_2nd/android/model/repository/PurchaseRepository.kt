@@ -16,7 +16,7 @@ class PurchaseRepository @Inject constructor(
         val res = purchaseDaoDataSource.insertPurchase(purchase)
 
         if (res.status == Resource.Status.SUCCESS) {
-            return@withContext productRepository.updateProduct(purchase.product!!)
+            return@withContext productRepository.updateProduct(purchase.product)
         }
         else {
             return@withContext res

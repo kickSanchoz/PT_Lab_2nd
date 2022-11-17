@@ -20,6 +20,10 @@ class ProductRepository @Inject constructor(
         productDaoDataSource.insertAllProducts(productList)
     }
 
+    suspend fun insertProduct(product: Product) = withContext(IO) {
+        productDaoDataSource.insertProduct(product)
+    }
+
     suspend fun updateProduct(product: Product) = withContext(IO) {
         if (product.count > 0) {
             return@withContext productDaoDataSource.updateProduct(

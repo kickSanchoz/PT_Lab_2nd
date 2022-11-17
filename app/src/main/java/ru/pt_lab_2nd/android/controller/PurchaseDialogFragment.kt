@@ -12,7 +12,6 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.MutableLiveData
 import coil.load
 import coil.size.Scale
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
@@ -25,7 +24,7 @@ import ru.pt_lab_2nd.android.utils.getPlaceholder
 import ru.pt_lab_2nd.databinding.DialogPurchaseBinding
 import javax.inject.Inject
 
-@AndroidEntryPoint
+//@AndroidEntryPoint
 class PurchaseDialogFragment : DialogFragment() {
 
     @Inject

@@ -151,7 +151,7 @@
         <item name="helperTextTextAppearance">@style/TextAppearance.S12</item>
     </style>
 
-    <style name="TextInputEditText" parent="Widget.AppCompat.EditText">
+    <style name="TextInputEditText">
         <item name="android:backgroundTint">@drawable/selector_text_input_bg</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textAppearance">@style/TextAppearance.S16</item>

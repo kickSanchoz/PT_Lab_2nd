@@ -10,6 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         style="@style/DialogFragmentStyle"
         android:layout_width="match_parent"
+        android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"
         android:layout_height="wrap_content"
         android:paddingStart="16dp"
         android:paddingTop="20dp"

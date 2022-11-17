@@ -13,12 +13,19 @@ interface ProductDao {
     @Query("SELECT * FROM product")
     fun getAllProducts(): LiveData<List<Product>?>
 
+    //Метод нужен для тестов, т.к. livedata возращает асинхронно
+    @Query("SELECT * FROM product")
+    suspend fun getAllProductsAsync(): List<Product>?
+
     @Insert(onConflict = REPLACE)
     fun insertAllProducts(productList: List<Product>)
 
     @Insert(onConflict = REPLACE)
     fun insertProduct(product: Product)
 
-    @Query ("UPDATE product SET count= :count WHERE id LIKE :id")
+    @Query("UPDATE product SET count= :count WHERE id LIKE :id")
     fun updateProduct(id: Int, count: Int)
+
+    @Query("DELETE FROM product")
+    suspend fun deleteAllProducts()
 }

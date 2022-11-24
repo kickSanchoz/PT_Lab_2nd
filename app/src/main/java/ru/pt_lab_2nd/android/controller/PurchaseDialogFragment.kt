@@ -31,7 +31,7 @@ class PurchaseDialogFragment : DialogFragment() {
     lateinit var purchaseRepository: PurchaseRepository
 
     private var _binding: DialogPurchaseBinding? = null
-    private val binding
+    val binding
         get() = _binding!!
 
     private val job = SupervisorJob()
